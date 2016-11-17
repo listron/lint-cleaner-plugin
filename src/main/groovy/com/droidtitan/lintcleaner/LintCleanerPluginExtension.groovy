@@ -4,9 +4,10 @@ import org.gradle.api.Project
 
 class LintCleanerPluginExtension {
 
-  List<String> exclude = []
   String lintXmlFilePath
   boolean ignoreResFiles = false
+  List<String> excludeFile = []
+  List<String> excludeLine = []
 
   LintCleanerPluginExtension(Project project) {
     /** Default lint file path when user does not set it explicitly using DSL */

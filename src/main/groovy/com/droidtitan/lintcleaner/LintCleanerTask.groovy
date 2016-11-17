@@ -27,7 +27,8 @@ class LintCleanerTask extends DefaultTask {
   final String LOCATION_XML_TAG = "location"
 
   final Map<String, List<String>> filePathToLines = new HashMap<String, ArrayList<String>>()
-  List<String> excludes
+  List<String> excludeFile
+  List<String> excludeLine
   String lintXmlFilePath
   boolean ignoreResFiles
 
@@ -45,12 +46,11 @@ class LintCleanerTask extends DefaultTask {
 
     def builderFactory = DocumentBuilderFactory.newInstance()
     Document lintDocument = builderFactory.newDocumentBuilder().parse(lintFile)
-
+    excludeFile = getExcludeFile()
     NodeList issues = lintDocument.getElementsByTagName(ISSUE_XML_TAG)
     processIssues(issues)
 
     if (!getIgnoreResFiles()) {
-      excludes = getExcludes()
       removeUnusedLinesInResFiles()
     }
   }
@@ -77,12 +77,16 @@ class LintCleanerTask extends DefaultTask {
   void processLocation(Element location) {
     String line = location.getAttribute(LINE_XML_TAG)
     String filePath = location.getAttribute(FILE_PATH_XML_TAG)
+    String fileName = filterFileName(filePath)
 
     boolean isLayout = filePath.contains(LAYOUT_XML_TAG)
     boolean isDrawable = filePath.contains(DRAWABLE_XML_TAG)
     boolean isAnim = filePath.contains(ANIM_XML_TAG)
     boolean isColor = filePath.contains(COLOR_XML_TAG)
     if (line.empty || isLayout || isDrawable || isAnim ||isColor) {
+      if(excludeFile.contains(fileName)){
+        return;
+      }
 	  File file = new File(filePath)
       file.delete()
       println "Removed $file.name"
@@ -94,12 +98,17 @@ class LintCleanerTask extends DefaultTask {
     }
   }
 
+  String filterFileName(String path){
+    File sourceFile = new File(path)
+    return sourceFile.name;
+  }
+
   /** Removes unused resources from single files like strings.xml, color.xml etc. */
   void removeUnusedLinesInResFiles() {
     filePathToLines.each { filePath, unusedLines ->
       File sourceFile = new File(filePath)
 
-      if (excludes.contains(sourceFile.name)) {
+      if (excludeFile.contains(sourceFile.name)) {
         return
       }
 
@@ -113,7 +122,8 @@ class LintCleanerTask extends DefaultTask {
 	    sourceFile.eachLine { line ->
 
           String lineNumber = Integer.toString(index)
-          if (unusedLines.contains(lineNumber) || removingArray ||removingStyle) {
+
+          if ((unusedLines.contains(lineNumber) && !isExcluded(line)) || removingArray ||removingStyle) {
             if (line.contains(ARRAY_XML_TAG)) {
               removingArray = !removingArray
             }
@@ -136,6 +146,15 @@ class LintCleanerTask extends DefaultTask {
         println "Failed to remove entries from $sourceFile.name"
       }
     }
+  }
+
+  boolean isExcluded(String line){
+    for(String s:excludeLine){
+      if(line.contains(s)){
+        return true;
+      }
+    }
+    return false;
   }
 
   static void printEntryRemovalCount(File file, int count) {
