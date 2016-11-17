@@ -15,6 +15,11 @@ class LintCleanerTask extends DefaultTask {
   final String UNUSED_RESOURCES_ID = "UnusedResources"
   final String WRITER_ENCODING = "UTF-8"
   final String ARRAY_XML_TAG = "array"
+  final String STYLE_XML_TAG = "style"
+  final String LAYOUT_XML_TAG = "/layout"
+  final String DRAWABLE_XML_TAG = "/drawable"
+  final String COLOR_XML_TAG = "/color/"
+  final String ANIM_XML_TAG = "anim"
   final String FILE_PATH_XML_TAG = "file"
   final String ID_XML_TAG = "id"
   final String ISSUE_XML_TAG = "issue"
@@ -73,8 +78,12 @@ class LintCleanerTask extends DefaultTask {
     String line = location.getAttribute(LINE_XML_TAG)
     String filePath = location.getAttribute(FILE_PATH_XML_TAG)
 
-    if (line.empty) {
-      File file = new File(filePath)
+    boolean isLayout = filePath.contains(LAYOUT_XML_TAG)
+    boolean isDrawable = filePath.contains(DRAWABLE_XML_TAG)
+    boolean isAnim = filePath.contains(ANIM_XML_TAG)
+    boolean isColor = filePath.contains(COLOR_XML_TAG)
+    if (line.empty || isLayout || isDrawable || isAnim ||isColor) {
+	  File file = new File(filePath)
       file.delete()
       println "Removed $file.name"
     } else {
@@ -100,12 +109,16 @@ class LintCleanerTask extends DefaultTask {
       tempFile.withWriter(WRITER_ENCODING) { writer ->
         int index = 1
         boolean removingArray = false
-        sourceFile.eachLine { line ->
+        boolean removingStyle = false
+	    sourceFile.eachLine { line ->
 
           String lineNumber = Integer.toString(index)
-          if (unusedLines.contains(lineNumber) || removingArray) {
+          if (unusedLines.contains(lineNumber) || removingArray ||removingStyle) {
             if (line.contains(ARRAY_XML_TAG)) {
               removingArray = !removingArray
+            }
+            if(line.contains(STYLE_XML_TAG)){
+              removingStyle = !removingStyle
             }
           } else {
             writer << line + LINE_SEPARATOR
