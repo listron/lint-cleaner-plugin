@@ -12,8 +12,8 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'nexus'
 
-group = 'com.droidtitan'
-version = '0.3.0'
+group = 'com.github.xiepengchong'
+version = '1.0.1'
 
 dependencies {
   repositories {
@@ -31,8 +31,10 @@ install {
 }
 
 uploadArchives {
-  repositories.mavenDeployer {
-    pom.artifactId = 'lint-cleaner-plugin'
+  repositories {
+    mavenDeployer {
+      pom.artifactId = 'lint-cleaner-plugin'
+    }
   }
 }
 
@@ -40,13 +42,13 @@ modifyPom {
   project {
     name 'Lint Cleaner Plugin'
     description "A Gradle plugin that helps with the removal of unused resources in Android projects."
-    url 'https://github.com/marcoRS/lint-cleaner-plugin'
+    url 'https://github.com/xiepengchong/lint-cleaner-plugin'
     inceptionYear '2014'
 
     scm {
-      url 'https://github.com/marcoRS/lint-cleaner-plugin'
-      connection 'scm:git:git://github.com:marcoRS/lint-cleaner-plugin.git'
-      developerConnection 'scm:git:ssh://git@github.com:marcoRS/lint-cleaner-plugin.git'
+      url 'https://github.com/xiepengchong/lint-cleaner-plugin'
+      connection 'scm:git@github.com:xiepengchong/lint-cleaner-plugin.git'
+      developerConnection 'scm:git:ssh://git@github.com:xiepengchong/lint-cleaner-plugin.git'
     }
 
     licenses {
@@ -58,15 +60,15 @@ modifyPom {
     }
 
     organization {
-      name 'DroidTitan'
-      url 'http://droidtitan.com'
+      name 'xpc'
+      url ''
     }
 
     developers {
       developer {
-        id 'marco'
-        name 'Marco Rodriguez-Suarez'
-        email 'mars@droidtitan.com'
+        id 'xpc'
+        name 'Xie PengChong'
+        email '187166772@qq.com'
       }
     }
   }
