@@ -1,6 +1,3 @@
-#Lint Cleaner Plugin 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.droidtitan/lint-cleaner-plugin/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.droidtitan/lint-cleaner-plugin) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-lint--cleaner--plugin-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/877)
-
 Removes unused resources reported by Android lint including strings, colors and dimensions,styles,drawable .
 
 ## Usage
