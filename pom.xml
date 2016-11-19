@@ -39,6 +39,12 @@
       <version>2.4.4</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin<artifactId>
+      <version>3.0</version>
+      <type>maven-plugin</type>
+    </depencency>
   </dependencies>
   <distributionManagement>
     <repository>
