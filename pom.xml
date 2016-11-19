@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.xiepengchong</groupId>
+  <artifactId>lint-cleaner-plugin</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
+  <name>Lint Cleaner Plugin</name>
+  <description>A Gradle plugin that helps with the removal of unused resources in Android projects.</description>
+  <url>https://github.com/xiepengchong/lint-cleaner-plugin</url>
+  <inceptionYear>2014</inceptionYear>
+  <organization>
+    <name>xpc</name>
+    <url />
+  </organization>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>xpc</id>
+      <name>Xie PengChong</name>
+      <email>187166772@qq.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git@github.com:xiepengchong/lint-cleaner-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:xiepengchong/lint-cleaner-plugin.git</developerConnection>
+    <url>https://github.com/xiepengchong/lint-cleaner-plugin</url>
+    <tag>lint-cleaner-plugin-1.0.1</tag>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>2.4.4</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <distributionManagement>
+    <repository>
+	  <id>releases</id>
+	  <name>Nexus Release Repository</name>
+	  <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+	</repository>
+	<snapshotRepository>
+	  <id>snapshots</id>
+	  <name>Nexus Snapshot Repository</name>
+	  <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>
