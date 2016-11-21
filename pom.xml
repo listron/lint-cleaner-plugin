@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.xiepengchong</groupId>
   <artifactId>lint-cleaner-plugin</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.2</version>
   <name>Lint Cleaner Plugin</name>
   <description>A Gradle plugin that helps with the removal of unused resources in Android projects.</description>
   <url>https://github.com/xiepengchong/lint-cleaner-plugin</url>
@@ -112,6 +112,39 @@
 		  </execution>
 		</executions>
       </plugin>
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-source-plugin</artifactId>
+		<version>2.4</version>
+		<configuration>
+		  <attach>true</attach>
+		</configuration>
+          <executions>  
+            <execution>  
+              <id>attach-sources</id>  
+              <phase>package</phase>
+			  <goals>
+			    <goal>jar-no-fork</goal>
+			  </goals>
+            </execution>  
+          </executions>  
+       </plugin>  
+       <plugin>
+	     <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-javadoc-plugin</artifactId>
+		 <version>2.10.2</version>
+         <configuration>
+		   <aggregate>true</aggregate>
+		 </configuration>
+         <executions>  
+           <execution>  
+              <id>attach-javadocs</id>  
+              <goals>
+			    <goal>jar</goal>
+		      </goals>
+			</execution>  
+          </executions>  
+      </plugin>  
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
