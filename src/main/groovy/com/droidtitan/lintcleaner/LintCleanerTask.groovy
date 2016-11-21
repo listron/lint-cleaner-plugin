@@ -87,9 +87,13 @@ class LintCleanerTask extends DefaultTask {
       if(excludeFile.contains(fileName)){
         return;
       }
-	  File file = new File(filePath)
-      file.delete()
-      println "Removed $file.name"
+	  try{
+	    File file = new File(filePath)
+        file.delete()
+        println "Removed $file.name"
+	  } catch(Exception e){
+	  
+	  }
     } else {
       List<String> lineNumbers = filePathToLines.get(filePath)
       lineNumbers = lineNumbers ? lineNumbers : new ArrayList<String>()
