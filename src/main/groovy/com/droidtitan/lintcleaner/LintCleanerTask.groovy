@@ -47,7 +47,7 @@ class LintCleanerTask extends DefaultTask {
     def builderFactory = DocumentBuilderFactory.newInstance()
     Document lintDocument = builderFactory.newDocumentBuilder().parse(lintFile)
     excludeFile = getExcludeFile()
-    NodeList issues = lintDocument.getElementsByTagName(ISSUE_XML_TAG)
+    org.w3c.dom.NodeList issues = lintDocument.getElementsByTagName(ISSUE_XML_TAG)
     processIssues(issues)
 
     if (!getIgnoreResFiles()) {
@@ -55,12 +55,12 @@ class LintCleanerTask extends DefaultTask {
     }
   }
 
-  void processIssues(NodeList issues) {
+  void processIssues(org.w3c.dom.NodeList issues) {
     issues.each {
       Element issue = it as Element
 
       if (issue.getAttribute(ID_XML_TAG).equals(UNUSED_RESOURCES_ID)) {
-        NodeList locations = issue.getElementsByTagName(LOCATION_XML_TAG)
+        org.w3c.dom.NodeList locations = issue.getElementsByTagName(LOCATION_XML_TAG)
 
         if (locations.length == 1) {
           processLocation(locations.item(0) as Element)

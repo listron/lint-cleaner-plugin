@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.xiepengchong</groupId>
   <artifactId>lint-cleaner-plugin</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>Lint Cleaner Plugin</name>
   <description>A Gradle plugin that helps with the removal of unused resources in Android projects.</description>
   <url>https://github.com/xiepengchong/lint-cleaner-plugin</url>
@@ -45,9 +45,73 @@
       <version>3.0</version>
       <type>maven-plugin</type>
     </dependency>
+	<dependency>
+	  <groupId>org.codehaus.gmaven.runtime</groupId>
+	  <artifactId>gmaven-runtime-1.7</artifactId>
+	  <version>1.2</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.gradle.api.plugins</groupId>
+	  <artifactId>gradle-nexus-plugin</artifactId>
+	  <version>0.3</version>
+	</dependency>
+	<dependency>
+	  <groupId>gradle-core</groupId>
+	  <artifactId>gradle-core</artifactId>
+	  <version>2.10</version>
+	  <scope>system</scope>
+	  <systemPath>${project.basedir}/libs/gradle-core-2.10.jar</systemPath>
+	</dependency>
+	<dependency>
+	  <groupId>gradle-base-services-groovy</groupId>
+	  <artifactId>gradle-base-services-groovy</artifactId>
+	  <version>2.10</version>
+	  <scope>system</scope>
+	  <systemPath>${project.basedir}/libs/gradle-base-services-groovy-2.10.jar</systemPath>
+	</dependency>
+	<dependency>
+	  <groupId>gradle-base-services</groupId>
+	  <artifactId>gradle-base-services</artifactId>
+	  <version>2.10</version>
+	  <scope>system</scope>
+	  <systemPath>${project.basedir}/libs/gradle-base-services-2.10.jar</systemPath>
+	</dependency>
+	<dependency>
+	  <groupId>gradle-model-core</groupId>
+	  <artifactId>gradle-model-core</artifactId>
+	  <version>2.10</version>
+	  <scope>system</scope>
+	  <systemPath>${project.basedir}/libs/gradle-model-core-2.10.jar</systemPath>
+	</dependency>
   </dependencies>
   <build>
+    <sourceDirectory>src/main/groovy</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+          <includes>
+            <include>**/*.*</include>
+          </includes>
+      </resource>
+    </resources>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.gmaven</groupId>
+		<artifactId>gmaven-plugin</artifactId>
+		<version>1.2</version>
+		<configuration>
+		  <providerSelection>1.7</providerSelection>
+		  <sourceEncoding>UTF-8</sourceEncoding>
+		</configuration>  
+	    <executions>  
+		  <execution>
+		    <goals>
+			  <goal>generateStubs</goal>
+			  <goal>compile</goal>
+			</goals>
+		  </execution>
+		</executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
