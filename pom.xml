@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.xiepengchong</groupId>
   <artifactId>lint-cleaner-plugin</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <name>Lint Cleaner Plugin</name>
   <description>A Gradle plugin that helps with the removal of unused resources in Android projects.</description>
   <url>https://github.com/xiepengchong/lint-cleaner-plugin</url>
