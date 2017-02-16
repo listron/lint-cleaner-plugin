@@ -47,6 +47,7 @@ class LintCleanerTask extends DefaultTask {
     def builderFactory = DocumentBuilderFactory.newInstance()
     Document lintDocument = builderFactory.newDocumentBuilder().parse(lintFile)
     excludeFile = getExcludeFile()
+    excludeLine = getExcludeLine()
     org.w3c.dom.NodeList issues = lintDocument.getElementsByTagName(ISSUE_XML_TAG)
     processIssues(issues)
 
@@ -111,7 +112,6 @@ class LintCleanerTask extends DefaultTask {
   void removeUnusedLinesInResFiles() {
     filePathToLines.each { filePath, unusedLines ->
       File sourceFile = new File(filePath)
-
       if (excludeFile.contains(sourceFile.name)) {
         return
       }
@@ -153,6 +153,7 @@ class LintCleanerTask extends DefaultTask {
   }
 
   boolean isExcluded(String line){
+
     for(String s:excludeLine){
       if(line.contains(s)){
         return true;
